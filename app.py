@@ -3,15 +3,14 @@ import requests
 from collections import deque
 import json
 from flask import Response, stream_with_context
+from constants import OLLAMA_API_URL, MODEL_NAME, MAX_HISTORY_LENGTH, DEBUG_MODE
 
 
 app = Flask(__name__)
-app.debug = True
-OLLAMA_API_URL = "http://localhost:11434/api/generate"  # Ollama's local endpoint
-MODEL_NAME = "deepseek-r1:8b"  # Use the model you pulled in Ollama
+app.debug = DEBUG_MODE
 
-# Initialize a deque to hold conversation history with a maximum length of 50 messages
-MAX_HISTORY_LENGTH = 50
+# For now it's like this, in the future this may be handled on a database
+# in order to have more consistent and complex answers
 conversation_history = deque(maxlen=MAX_HISTORY_LENGTH)
 
 
